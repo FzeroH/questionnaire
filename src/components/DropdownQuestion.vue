@@ -13,7 +13,6 @@
         {{ answer.name }}
       </option>
     </select>
-    <span>{{ answerValue }}</span>
   </section>
 </template>
 

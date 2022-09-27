@@ -15,7 +15,6 @@
         </label>
       </li>
     </ul>
-    <span>{{ test }}</span>
   </section>
 </template>
 

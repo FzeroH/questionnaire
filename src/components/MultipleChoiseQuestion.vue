@@ -10,7 +10,6 @@
         </label>
       </li>
     </ul>
-    <span>{{ answerValue }}</span>
   </section>
 </template>
 
