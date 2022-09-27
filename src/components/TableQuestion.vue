@@ -1,24 +1,24 @@
 <template>
   <div>
-    <h4>{{ question.questionTitle }}</h4>
-    <p>{{ question.numberOfResponses }}</p>
+    <h4>{{question.id}}.{{ question.title }}</h4>
+    <p>(пожалуйста, выберите один вариант ответа для каждого финансового продукта)</p>
     <div class="table" :style="tableStyles">
        <div class="table__head">
         </div>
         <div
           class="table__body"
-          v-for="(item, indexRow) in question.body"
-          :key="`row_${indexRow}`">
-          {{ item[keyCol] }}
+          v-for="(item) in question.options[1]"
+          :key="item.id">
+          {{ item.name }}
         </div>
-      <template v-for="(head, indexCol) in question.head">
-        <div class="table__head" :key="`col_${indexCol}`">
-          <span class="table__text">{{ head }}</span>
+      <template v-for="(head) in question.options[0]">
+        <div class="table__head" :key="head.id">
+          <span class="table__text">{{ head.name }}</span>
         </div>
         <!--eslint-disable-next-line-->
-        <div v-for="(item ,indexBody) in question.body" :key="`body_${indexBody}`+ question.questionTitle.substr(0,2)" class="table__body">
+        <div v-for="(item ,indexBody) in question.options[1]" :key="item.id" class="table__body">
           <!--eslint-disable-next-line-->
-          <input type="radio" :value="item.title" :name="item.title">
+          <input type="radio" :value="item.name" :name="item.name" :title="head.name">
         </div>
       </template>
     </div>
@@ -46,10 +46,10 @@ export default {
   },
   computed: {
     countRows() {
-      return this.question.body.length + 1;
+      return this.question.options[1].length + 1;
     },
     countColumns() {
-      return this.question.head.length + 1;
+      return this.question.options[0].length + 1;
     },
     tableStyles() {
       return {

@@ -1,15 +1,19 @@
 <template>
   <section>
-    <h4>{{ question.questionTitle }}</h4>
-    <p>{{ question.explanation }}</p>
+    <h4>{{question.id}}.{{ question.title }}</h4>
+    <p>(пожалуйста, укажите один вариант ответа)</p>
     <!--eslint-disable-next-line-->
-    <select>
-      <option>Выберите один из вариантов</option>
-      <option v-for="(answer, index) in question.answers" :key="index">
-        {{ answer }}
+    <select v-model="answerValue" @change="$emit('answer-value', {
+      title: question.title,
+      answer: answerValue
+    } )">
+      <option disabled>Выберите один из вариантов</option>
+      <option v-for="(answer, index) in question.options"
+              :key="'d'+index" :value="answer.name">
+        {{ answer.name }}
       </option>
     </select>
-    <span>{{ question.explanation }}</span>
+    <span>{{ answerValue }}</span>
   </section>
 </template>
 
@@ -21,6 +25,11 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  data() {
+    return {
+      answerValue: '',
+    };
   },
 };
 </script>

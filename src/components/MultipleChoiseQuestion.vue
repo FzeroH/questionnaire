@@ -1,27 +1,32 @@
 <template>
   <section>
-    <h4>{{ question.questionTitle }}</h4>
-    <p>{{ question.numberOfResponses }}</p>
+    <h4>{{question.id}}.{{ question.title }}</h4>
+    <p>(пожалуйста, выберите один или несколько вариантов ответа в соответствующей ячейке)</p>
     <ul>
-      <li v-for="(answer, index) in question.answers" :key="index">
+      <li v-for="(answer, index) in question.options" :key="'m'+index">
         <label for="checkbox">
-          <input type="checkbox" id="checkbox" :value="answer">
-          {{ answer }}
+          <input type="checkbox" id="checkbox" :value="answer.name" v-model="answerValue">
+          {{ answer.name }}
         </label>
       </li>
     </ul>
-    <span>{{ question.explanation }}</span>
+    <span>{{ answerValue }}</span>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'MultipleChoiseQuestionuestion',
+  name: 'MultipleChoiseQuestion',
   props: {
     question: {
       type: Object,
       default: () => {},
     },
+  },
+  data() {
+    return {
+      answerValue: [],
+    };
   },
 };
 </script>

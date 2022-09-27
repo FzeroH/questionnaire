@@ -19,14 +19,13 @@ export default {
     next() {
       this.pathToPage = this.$route.path;
       this.pageNumber = this.pathToPage.slice(1);
-      console.log(this.pageNumber);
-      return this.$router.push(`/${Number(this.pageNumber) + 1}`);
+      this.$emit('addAnswer');
+      this.$router.push(`/${Number(this.pageNumber) + 1}`);
     },
     back() {
       this.pathToPage = this.$route.path;
       this.pageNumber = this.pathToPage.slice(1);
-      console.log(this.pageNumber);
-      return this.$router.push(`/${Number(this.pageNumber) - 1}`);
+      this.$router.push(`/${Number(this.pageNumber) - 1}`);
     },
     send() {
       alert('Конец');

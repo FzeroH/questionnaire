@@ -1,14 +1,17 @@
 <template>
   <div>
     <dropdown-question
-      :question="question" v-if="this.$props.question.type === 'dropdown'" />
+      :question="question" v-if="question.options.length > 5"
+      @answer-value="getValue"/>
     <multiple-choise-question
-      :question="question" v-else-if="this.$props.question.type === 'multiple'" />
+      :question="question" v-if="question.max_check === 2" />
     <table-question
       :question="question"
-      v-else-if="this.$props.question.type === 'table'"/>
+      v-if="question.max_check === 3"/>
     <single-choise-question
-      :question="question" v-else/>
+      :question="question"
+      v-if="question.options.length <= 5 &&question.max_check === 1"
+      @answer-value="getValue"/>
   </div>
 </template>
 
@@ -29,6 +32,17 @@ export default {
     question: {
       type: Object,
       default: () => {},
+    },
+  },
+  data() {
+    return {
+      value: [],
+    };
+  },
+  methods: {
+    getValue(data) {
+      this.value.push(data);
+      this.$emit('answer', this.value);
     },
   },
 };
