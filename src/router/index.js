@@ -6,6 +6,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/',
+    redirect: '/1',
+  },
+  {
     path: '/:page',
     name: 'main',
     component: MainPage,
